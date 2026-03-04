@@ -1,30 +1,51 @@
-# SII - Consulta Situación Tributaria de Terceros
+# SII Tax Status API
 
-Script en Python para consultar la situación tributaria de un contribuyente en el SII (Servicio de Impuestos Internos de Chile) usando su RUT.
+API en .NET 8 para consultar la situación tributaria de un contribuyente en el SII (Servicio de Impuestos Internos de Chile) usando su RUT.
 
-## Instalación
+## Requisitos
 
-```bash
-pip install -r requirements.txt
-```
+- .NET 8 SDK
 
-## Uso
+## Ejecutar
 
 ```bash
-python main.py <RUT>
+dotnet run
 ```
 
-Ejemplo:
+La API estará disponible en `http://localhost:5000` (o el puerto configurado).
+
+## Endpoint
+
+```
+GET /api/situacion-tributaria/{rut}
+```
+
+### Ejemplo
 
 ```bash
-python main.py 76632059-7
+curl http://localhost:5000/api/situacion-tributaria/76632059-7
 ```
 
-El RUT puede ingresarse con o sin puntos y guión.
+### Respuesta
 
-## Respuesta
+```json
+{
+  "rut": "76632059-7",
+  "razonSocial": "EMPRESA EJEMPLO S.A.",
+  "inicioActividades": "SI - 01/03/2010",
+  "actividades": [
+    {
+      "codigo": "620100",
+      "actividad": "ACTIVIDADES DE CONSULTORIA INFORMATICA",
+      "categoria": "Primera",
+      "afectaIva": "Si",
+      "fecha": "01/03/2010"
+    }
+  ],
+  "documentosTimbrados": []
+}
+```
 
-El script retorna un JSON con la siguiente información:
-- Razón social
-- Actividades económicas
-- Documentos timbrados
+### Swagger
+
+Documentación interactiva disponible en `/swagger`.
